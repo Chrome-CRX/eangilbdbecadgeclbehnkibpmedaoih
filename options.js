@@ -99,3 +99,12 @@ function modRight(mode) {
 	}
 	save_options3(mode);
 }
+
+// Previously inline event handlers
+$(function() {
+    $("#add").keydown(function(event) { if (event.keyCode == 13) document.getElementById('addBtn').click()});
+    $("#addBtn").click(function() {add()});
+    $("#removeBtn").click(function() {remove()});
+    $("#0r").change(function() {modRight(0)});
+    $("#1r").change(function() {modRight(1)});
+});

@@ -30,17 +30,17 @@
 
 <h6>Ignore List</h6>
 <div id="ignorelist">
-<input id="add" size="30" type="text" style="width:200; height:25;" onkeydown="if (event.keyCode == 13) document.getElementById('addBtn').click()">
-<p/><p/><button id="addBtn"onclick="add()" class="btn success">Add</button>
+<input id="add" size="30" type="text" style="width:200; height:25;">
+<p/><p/><button id="addBtn" class="btn success">Add</button>
 <p/><p/><select class="medium" multiple="multiple" name="ignore" id="ignore" style="width:200; height:200;"></select>
 <p/>(Site URLs conaining any of the above will be protected)
-<p/><button id="removeBtn" onclick="remove()" class="btn danger" >Remove Selected</button>
+<p/><button id="removeBtn" class="btn danger" >Remove Selected</button>
 </div>
 
 <h6>Right-Click Options</h6>
 <div id="rightclickopt">
-<input type="radio" id="0r" name="clickRadio" value="On" onchange="modRight(0)">&nbsp;<font style="font-size:16px;">Keep "Allow Next Duplicate"</font>
-<p/><p/><input type="radio" id="1r" name="clickRadio" value="Off" onchange="modRight(1)">&nbsp;<font style="font-size:16px;">No Right-Click Option</font>
+<input type="radio" id="0r" name="clickRadio" value="On">&nbsp;<font style="font-size:16px;">Keep "Allow Next Duplicate"</font>
+<p/><p/><input type="radio" id="1r" name="clickRadio" value="Off">&nbsp;<font style="font-size:16px;">No Right-Click Option</font>
 </div>
 
 <div id="contact">
