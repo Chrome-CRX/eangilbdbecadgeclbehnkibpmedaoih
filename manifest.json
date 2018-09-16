@@ -9,6 +9,7 @@
       "48": "images/icon48.png"
    },
    "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJI3pDYcAnZ4twstg/S9qAphRkQt2OVbleiXv7r1p/bUaCOEjzaGyxAQcfT1qxDHj6GpVHV7b53qgfRKAn3v7fYDnRGpgv/5S0KPY4cJMhhd9mKwKQxVtPtj8EGuSKYgWxhf2tTztVQzTKE1rIDgfyJPTpx3FfHmq817XiTTct6wIDAQAB",
+   "manifest_version": 2,
    "name": "Prevent Duplicate Tabs",
    "options_page": "options.html",
    "permissions": [ "tabs", "contextMenus" ],
