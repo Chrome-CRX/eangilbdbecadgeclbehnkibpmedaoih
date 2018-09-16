@@ -13,7 +13,8 @@ function updateIcon(mode){
 }
 
 function initContext() {
-	var parent = chrome.contextMenus.create({"title": "Allow next duplicate", "onclick":allow});
+	chrome.contextMenus.create({"title": "Allow next duplicate", "id": "Allow next duplicate", "contexts": ["all"]});
+	chrome.contextMenus.onClicked.addListener(({contextMenuId}) => {if (contextMenuId == "Allow next duplicate") {allow()}});
 }
 
 //Initializes mode;
