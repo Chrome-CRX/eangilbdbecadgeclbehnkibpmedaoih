@@ -1,0 +1,17 @@
+{
+   "background_page": "background.html",
+   "browser_action": {
+      "default_icon": "images/iconRIGHT.png"
+   },
+   "description": "Simple built-in duplicate-tab-prevention.",
+   "icons": {
+      "128": "images/icon128.png",
+      "48": "images/icon48.png"
+   },
+   "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJI3pDYcAnZ4twstg/S9qAphRkQt2OVbleiXv7r1p/bUaCOEjzaGyxAQcfT1qxDHj6GpVHV7b53qgfRKAn3v7fYDnRGpgv/5S0KPY4cJMhhd9mKwKQxVtPtj8EGuSKYgWxhf2tTztVQzTKE1rIDgfyJPTpx3FfHmq817XiTTct6wIDAQAB",
+   "name": "Prevent Duplicate Tabs",
+   "options_page": "options.html",
+   "permissions": [ "tabs", "contextMenus" ],
+   "update_url": "http://clients2.google.com/service/update2/crx",
+   "version": "1.4.0"
+}

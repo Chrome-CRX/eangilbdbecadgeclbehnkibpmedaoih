@@ -1,0 +1,158 @@
+<html>
+<head><title>Prevent Duplicate Tabs Options</title>
+<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+//TODO: Add a clear button?
+
+function resetHighlight() {
+	$('#ignore option:selected').each(function () {
+          $(this).removeAttr("selected");
+	});
+	$("#ignore option:first").attr('selected','selected');
+}
+
+function add() {
+	var word = $('#add').val();
+	word = word.toLowerCase();
+	if (word.length <= 1) return;
+	$('#add').val('');
+	
+	var list = new Array(); //Check if word already exists
+	if (!localStorage.getItem("ignore")) list = [];
+	else list = localStorage.getItem("ignore").split('&#3;');
+	if (list.indexOf(word) != -1) return;
+	
+	$('#ignore').append($('<option>', { value : word }).text(word)); 
+	save_options2();
+	resetHighlight();
+}
+
+function remove() {
+	 $('#ignore option:selected').each(function () {
+          $(this).remove();
+	});
+	save_options2();
+	resetHighlight();
+}
+
+$(document).ready( function() {
+	restore_options();
+	$('form input:radio').change(save_options1);
+});
+
+function save_options1() {
+	$('form input[type=radio]:checked').each(function() {
+		localStorage["mode"] = $(this).attr('id');
+	});
+
+  chrome.extension.getBackgroundPage().updateIcon(localStorage["mode"]);
+  $('#status').html("<p/><p/><p/><p/>Options <b>Saved</b>.");
+  setTimeout(function() {
+    $('#status').html("");
+  }, 1000);
+ }
+ 
+function save_options2() {
+ var list = new Array();
+  $('select option').each(function () {
+          list.push($(this).val());
+	});
+  localStorage.setItem("ignore", list.join('&#3;'));
+  
+  // Update status to let user know options were saved.
+  $('#status').html("<p/><p/><p/><p/>Options <b>Saved</b>.");
+  setTimeout(function() {
+    $('#status').html("");
+  }, 1000);
+}
+
+function save_options3(mode) {
+  localStorage.setItem("rightclick", mode);
+
+  // Update status to let user know options were saved.
+  $('#status').html("<p/><p/><p/><p/>Options <b>Saved</b>.");
+  setTimeout(function() {
+    $('#status').html("");
+  }, 1000);
+}
+
+function restore_options() {
+  var mode = localStorage["mode"];
+  if (!mode) mode = 2;
+  $('#' + mode).attr('checked', true);
+  
+  var clickMode = localStorage["rightclick"];
+  if (!clickMode) clickMode = 0;
+  $('#' + clickMode + "r").attr('checked', true);
+  
+  var list = new Array();
+  if (!localStorage.getItem("ignore")) list = [];
+  else list = localStorage.getItem("ignore").split('&#3;');
+  for (var i = 0; i < list.length; i++) {
+	var word = list[i];
+	$('#ignore').append($('<option>', { value : word }).text(word)); 
+  }
+  resetHighlight();
+}
+
+function modRight(mode) {
+	if (mode == 0) { //Keep
+		chrome.extension.getBackgroundPage().initContext();
+	} else { //Remove
+		chrome.contextMenus.removeAll();
+	}
+	save_options3(mode);
+}
+
+</script>
+</head>
+
+<body><center>
+<div id="top">
+<p/><h1><font color="#0391d9">Prevent Duplicate Tabs</font> Options</h1>
+</div>
+
+<h6>Prevention Mode</h6>
+<div id="Mode">
+<form id="myForm1" name="myForm1">
+<input type="radio" id="2" name="modeRadio" value="Off">&nbsp;<font style="font-size:16px;">Keep New Duplicates</font>
+<p/><p/><input type="radio" id="1" name="modeRadio" value="Off">&nbsp;<font style="font-size:16px;">Keep Old Duplicates</font>
+<p/><p/><input type="radio" id="0" name="modeRadio" value="On">&nbsp;<font style="font-size:16px;">Disable</font>
+</form>
+</div>
+
+<!--<h6>Subdomains</h6>
+<div id="subdomains">
+<form id="myForm2" name="myForm2">
+<input type="radio" id="0 b" name="settingRadio" value="On">&nbsp;<font style="font-size:16px;">Close duplicate subdomains</font>
+<p/><p/><input type="radio" id="1 b" name="settingRadio" value="Off">&nbsp;<font style="font-size:16px;">Keep all distinct URLs</font>
+</form>
+</div>-->
+
+<h6>Ignore List</h6>
+<div id="ignorelist">
+<input id="add" size="30" type="text" style="width:200; height:25;" onkeydown="if (event.keyCode == 13) document.getElementById('addBtn').click()">
+<p/><p/><button id="addBtn"onclick="add()" class="btn success">Add</button>
+<p/><p/><select class="medium" multiple="multiple" name="ignore" id="ignore" style="width:200; height:200;"></select>
+<p/>(Site URLs conaining any of the above will be protected)
+<p/><button id="removeBtn" onclick="remove()" class="btn danger" >Remove Selected</button>
+</div>
+
+<h6>Right-Click Options</h6>
+<div id="rightclickopt">
+<input type="radio" id="0r" name="clickRadio" value="On" onchange="modRight(0)">&nbsp;<font style="font-size:16px;">Keep "Allow Next Duplicate"</font>
+<p/><p/><input type="radio" id="1r" name="clickRadio" value="Off" onchange="modRight(1)">&nbsp;<font style="font-size:16px;">No Right-Click Option</font>
+</div>
+
+<div id="contact">
+<br/><font face="century gothic" size="2">Ideas? Questions? Suggestions? <a href="mailto:duplicateTabs@gmail.com?subject=PreventDuplicateTabs">duplicateTabs@gmail.com</a></font>
+</div>
+ 
+<div id="status" style="text-align:center;">
+<br/><!--Temporary Output-->
+</div>
+ 
+</center></body>
+</html>
